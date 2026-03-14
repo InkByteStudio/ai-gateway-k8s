@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: tenant-a-ai-quota
+  namespace: tenant-a
+spec:
+  hard:
+    requests.cpu: "20"
+    requests.memory: 64Gi
+    limits.cpu: "40"
+    limits.memory: 128Gi
+    pods: "50"

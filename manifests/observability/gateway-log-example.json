@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-03-10T15:22:11.418Z",
+  "request_id": "req_01JPN8XQZ0Y1M0AX3R0D4M9J7E",
+  "tenant": "tenant-a",
+  "hostname": "tenant-a.ai.example.com",
+  "route": "/v1/chat/completions",
+  "model_route": "chat-llama3-8b-v1",
+  "stream": true,
+  "http_status": 200,
+  "latency_ms": 1840,
+  "ttft_ms": 420,
+  "prompt_tokens": 612,
+  "completion_tokens": 238,
+  "estimated_cost_usd": 0.0194,
+  "gateway_backend": "chat-llama3-8b-v1.ai-models.svc.cluster.local:8000"
+}

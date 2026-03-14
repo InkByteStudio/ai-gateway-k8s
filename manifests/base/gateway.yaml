@@ -1,0 +1,22 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: ai-shared-gateway
+  namespace: ai-gateway
+spec:
+  gatewayClassName: your-gateway-class
+  listeners:
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: "*.ai.example.com"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: ai-example-com-tls
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              ai-routes: "enabled"

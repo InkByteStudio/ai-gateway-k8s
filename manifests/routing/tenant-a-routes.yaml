@@ -1,0 +1,29 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: tenant-a-inference
+  namespace: tenant-a
+spec:
+  parentRefs:
+    - name: ai-shared-gateway
+      namespace: ai-gateway
+      sectionName: https
+  hostnames:
+    - "tenant-a.ai.example.com"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /v1/chat/completions
+      backendRefs:
+        - name: chat-llama3-8b-v1
+          namespace: ai-models
+          port: 8000
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /v1/embeddings
+      backendRefs:
+        - name: embed-bge-small-v1
+          namespace: ai-models
+          port: 8000

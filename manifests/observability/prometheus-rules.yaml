@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: ai-gateway-recording-rules
+  namespace: ai-gateway
+spec:
+  groups:
+    - name: ai-gateway.rules
+      rules:
+        - record: ai_gateway:requests_per_second
+          expr: sum(rate(ai_gateway_requests_total[5m])) by (tenant, route, model_route)
+        - record: ai_gateway:error_rate
+          expr: sum(rate(ai_gateway_requests_total{status=~"5.."}[5m])) by (tenant, route, model_route)
+        - record: ai_gateway:p95_latency_ms
+          expr: histogram_quantile(0.95, sum(rate(ai_gateway_request_duration_ms_bucket[5m])) by (le, tenant, route, model_route))

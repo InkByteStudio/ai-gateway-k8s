@@ -1,0 +1,31 @@
+interactive_inference:
+  examples:
+    - chat-completions
+    - real-time-summarization
+  latency_sensitive: true
+  streaming: true
+  retry_friendly: false
+
+batch_inference:
+  examples:
+    - offline-embeddings
+    - nightly-document-labeling
+  latency_sensitive: false
+  streaming: false
+  retry_friendly: true
+
+tool_calling_agents:
+  examples:
+    - planner-executor-agents
+    - retrieval-agents
+  latency_sensitive: mixed
+  streaming: mixed
+  retry_friendly: mixed
+
+streaming_responses:
+  examples:
+    - server-sent-events
+    - token-streaming-chat
+  latency_sensitive: true
+  streaming: true
+  retry_friendly: false

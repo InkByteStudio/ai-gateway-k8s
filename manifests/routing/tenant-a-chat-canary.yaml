@@ -1,0 +1,26 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: tenant-a-chat-canary
+  namespace: tenant-a
+spec:
+  parentRefs:
+    - name: ai-shared-gateway
+      namespace: ai-gateway
+      sectionName: https
+  hostnames:
+    - "tenant-a.ai.example.com"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /v1/chat/completions
+      backendRefs:
+        - name: chat-llama3-8b-v1
+          namespace: ai-models
+          port: 8000
+          weight: 90
+        - name: chat-llama3-8b-v2
+          namespace: ai-models
+          port: 8000
+          weight: 10

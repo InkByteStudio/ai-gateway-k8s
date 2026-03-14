@@ -1,0 +1,35 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: tenant-a-inference-with-timeouts
+  namespace: tenant-a
+spec:
+  parentRefs:
+    - name: ai-shared-gateway
+      namespace: ai-gateway
+      sectionName: https
+  hostnames:
+    - "tenant-a.ai.example.com"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /v1/chat/completions
+      timeouts:
+        request: 120s
+        backendRequest: 115s
+      backendRefs:
+        - name: chat-llama3-8b-v1
+          namespace: ai-models
+          port: 8000
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /v1/embeddings
+      timeouts:
+        request: 30s
+        backendRequest: 25s
+      backendRefs:
+        - name: embed-bge-small-v1
+          namespace: ai-models
+          port: 8000

@@ -1,0 +1,21 @@
+entrypoints:
+  - tenant-hostnames
+  - shared-api-domain
+
+routing_dimensions:
+  - route_by_path
+  - route_by_model_version
+  - route_by_tenant
+
+required_controls:
+  - authn
+  - authz
+  - request_logging
+  - per_route_timeouts
+  - rollout_support
+
+deferred_for_v2:
+  - semantic_payload_inspection
+  - provider_failover
+  - token_based_rate_limiting
+  - body_based_model_routing

@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-03-10T15:40:02.112Z",
+  "tenant": "tenant-a",
+  "subject": "svc:agent-platform",
+  "route": "/v1/chat/completions",
+  "model_route": "chat-llama3-8b-v1",
+  "decision": "allow",
+  "request_id": "req_01JPN92C7S49YJ1E0QY6T5G6P3",
+  "sensitive_payload_logged": false
+}

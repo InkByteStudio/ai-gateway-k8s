@@ -1,0 +1,8 @@
+{
+  "input": [
+    "hello world",
+    "design a safe ai gateway on kubernetes",
+    "measure latency, error rate, and cost"
+  ],
+  "model": "bge-small"
+}
