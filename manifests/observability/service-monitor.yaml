@@ -1,0 +1,23 @@
+# ServiceMonitor for Prometheus Operator to scrape gateway metrics.
+# Update selector and port to match your gateway controller's Service:
+#   Envoy Gateway: label app.kubernetes.io/name=envoy, port http-metrics
+#   Istio:         label app=istiod, port http-monitoring
+#   Cilium:        label k8s-app=cilium-envoy, port envoy-metrics
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ai-gateway-metrics
+  namespace: ai-gateway
+  labels:
+    app: ai-gateway
+spec:
+  selector:
+    matchLabels:
+      app: ai-gateway            # Must match your gateway pod Service labels
+  namespaceSelector:
+    matchNames:
+      - ai-gateway
+  endpoints:
+    - port: metrics              # Must match your gateway's metrics port name
+      interval: 15s
+      path: /metrics

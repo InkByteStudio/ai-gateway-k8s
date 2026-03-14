@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: llm-router
+  namespace: tenant-a
+spec:
+  selector:
+    app: llm-router
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080

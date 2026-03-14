@@ -1,0 +1,34 @@
+# Option A: cert-manager Certificate (recommended for production)
+# Requires cert-manager installed: https://cert-manager.io/docs/installation/
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ai-example-com-tls
+  namespace: ai-gateway
+spec:
+  secretName: ai-example-com-tls
+  issuerRef:
+    name: your-cluster-issuer    # Replace with your ClusterIssuer
+    kind: ClusterIssuer
+  dnsNames:
+    - "*.ai.example.com"
+# ---
+# Option B: Manual TLS secret (for testing without cert-manager)
+# Generate with:
+#   kubectl create secret tls ai-example-com-tls \
+#     --cert=tls.crt --key=tls.key -n ai-gateway
+#
+# Or create a self-signed cert for local testing:
+#   openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+#     -keyout tls.key -out tls.crt \
+#     -subj "/CN=*.ai.example.com"
+#
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: ai-example-com-tls
+#   namespace: ai-gateway
+# type: kubernetes.io/tls
+# data:
+#   tls.crt: <base64-encoded-cert>
+#   tls.key: <base64-encoded-key>

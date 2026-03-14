@@ -1,0 +1,7 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - model-networkpolicy.yaml
+  - tenant-a-quota.yaml
+  # Uncomment if using Envoy Gateway (controller-specific CRD):
+  # - rate-limit-example.yaml

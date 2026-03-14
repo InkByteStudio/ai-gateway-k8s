@@ -1,0 +1,33 @@
+# Gateway-layer rate limiting for per-tenant fairness.
+#
+# ResourceQuota (tenant-a-quota.yaml) limits compute resources within a
+# namespace but does NOT control request throughput to shared model backends.
+# Rate limiting at the gateway layer closes that gap.
+#
+# This example uses Envoy Gateway's BackendTrafficPolicy. Adapt for your
+# gateway controller:
+#   Istio:  use EnvoyFilter or WasmPlugin
+#   Cilium: use CiliumNetworkPolicy with L7 rules
+#   Generic: deploy envoyproxy/ratelimit as an external rate-limit service
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: tenant-a-rate-limit
+  namespace: tenant-a
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: tenant-a-inference
+  rateLimit:
+    type: Global
+    global:
+      rules:
+        - clientSelectors:
+            - headers:
+                - name: Host
+                  value: tenant-a.ai.example.com
+          limit:
+            requests: 100
+            unit: Minute

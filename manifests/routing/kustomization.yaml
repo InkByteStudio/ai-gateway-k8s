@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+# Default: baseline routing. For alternative patterns (canary, timeouts,
+# router), replace tenant-a-routes.yaml with the desired file. See README.
+resources:
+  - tenant-a-routes.yaml
+  # Uncomment if using the router-service pattern (Option D):
+  # - llm-router-service.yaml

@@ -14,6 +14,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: chat-llama3-8b-v2
+  namespace: ai-models
+spec:
+  selector:
+    app: chat-llama3-8b-v2
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: embed-bge-small-v1
   namespace: ai-models
 spec:

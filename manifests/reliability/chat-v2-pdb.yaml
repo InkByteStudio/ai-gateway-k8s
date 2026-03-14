@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: chat-llama3-8b-v2
+  namespace: ai-models
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: chat-llama3-8b-v2
